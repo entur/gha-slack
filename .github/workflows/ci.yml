@@ -1,6 +1,7 @@
 name: Entur/Slack/CI
 
 on:
+  push:
   pull_request:
 
 jobs:
