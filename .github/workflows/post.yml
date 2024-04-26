@@ -44,13 +44,26 @@ jobs:
           if [[ "${{ env.GHA_SLACK_POST_RELEASE_NAME }}" = "repo_name" ]]; then
             echo "GHA_SLACK_POST_RELEASE_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
           fi
+      - id: set-message
+        shell: bash
+        run: |
+          echo "GHA_SLACK_POST_MESSAGE=*${{ env.GHA_SLACK_POST_TEAM }}* / _${{ github.actor }} (${{ env.GHA_SLACK_POST_MODE }})_\n*${{ env.GHA_SLACK_POST_RELEASE_NAME }}*\n\`${{ env.GHA_SLACK_POST_IMAGE }}\`" >> $GITHUB_ENV
       - id: slack-push
         uses: slackapi/slack-github-action@v1.25.0
         with:
           channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
-          slack-message: >
-            *${{ env.GHA_SLACK_POST_TEAM }}* / _${{ github.actor }} (${{ env.GHA_SLACK_POST_MODE }})_\n
-            *${{ env.GHA_SLACK_POST_RELEASE_NAME }}*\n
-            `${{ env.GHA_SLACK_POST_IMAGE }}`
+          payload: |
+            {
+              "text": "${{ env.GHA_SLACK_POST_MESSAGE }}",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "${{ env.GHA_SLACK_POST_MESSAGE }}"
+                  }
+                }
+              ]
+            }
     env:
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
