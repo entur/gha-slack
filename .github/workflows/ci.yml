@@ -1,0 +1,19 @@
+name: Entur/Slack/CI
+
+on:
+  pull_request:
+
+jobs:
+  update-post-doc:
+    uses: entur/gha-meta/.github/workflows/auto-doc.yml@v1.0.0
+    with:
+      workflow_file: .github/workflows/post.yml
+      readme_file: README-post.md
+
+  post-message:
+    uses: ./.github/workfows/post.yml
+    with:
+      channel: "C01AVRY6Q23" # notify-plattform
+      team: plattform
+      release_name: gha-slack
+    secrets: inherit
