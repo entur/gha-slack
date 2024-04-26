@@ -11,7 +11,7 @@ jobs:
       readme_file: README-post.md
 
   post-message:
-    uses: ./.github/workfows/post.yml
+    uses: ./.github/workflows/post.yml
     with:
       channel: "C01AVRY6Q23" # notify-plattform
       team: plattform
