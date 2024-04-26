@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/entur/gha-slack/compare/v1.0.0...v1.0.1) (2024-04-26)
+
+
+### Bug Fixes
+
+* use sandbox channel ([b7ac51a](https://github.com/entur/gha-slack/commit/b7ac51a69e8561ee687d0534314b87e0a4d08d1b))
+
 ## 1.0.0 (2024-04-26)
 
 
