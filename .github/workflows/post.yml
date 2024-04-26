@@ -47,7 +47,7 @@ jobs:
       - id: set-message
         shell: bash
         run: |
-          echo "GHA_SLACK_POST_MESSAGE=*${{ env.GHA_SLACK_POST_TEAM }}* / _${{ github.actor }} (${{ env.GHA_SLACK_POST_MODE }})_\n*${{ env.GHA_SLACK_POST_RELEASE_NAME }}*\n`${{ env.GHA_SLACK_POST_IMAGE }}`" >> $GITHUB_ENV
+          echo "GHA_SLACK_POST_MESSAGE=*${{ env.GHA_SLACK_POST_TEAM }}* / _${{ github.actor }} (${{ env.GHA_SLACK_POST_MODE }})_\n*${{ env.GHA_SLACK_POST_RELEASE_NAME }}*\n\`${{ env.GHA_SLACK_POST_IMAGE }}\`" >> $GITHUB_ENV
       - id: slack-push
         uses: slackapi/slack-github-action@v1.25.0
         with:
