@@ -16,7 +16,7 @@ jobs:
   post-message:
     uses: ./.github/workflows/post.yml
     with:
-      channel: "C01AVRY6Q23" # notify-plattform
+      channel: "GFBL95A0J" # notify-plattform
       team: plattform
       release_name: gha-slack
     secrets: inherit
