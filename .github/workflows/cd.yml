@@ -1,16 +1,13 @@
-name: Entur/Meta/CI
-
+name: release
 on:
-  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
-  generate-doc-for-auto-doc:
-    uses: ./.github/workflows/auto-doc.yml
-    with:
-      workflow_file: .github/workflows/auto-doc.yml
-      readme_file: README-auto-doc.md
-  generate-doc-for-release:
-    uses: ./.github/workflows/auto-doc.yml
-    with:
-      workflow_file: .github/workflows/release.yml
-      readme_file: README-release.md
+  release:
+    uses: entur/gha-meta/.github/workflows/release.yml@v1.0.0
