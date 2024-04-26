@@ -1,5 +1,5 @@
 <h1 align="center">
-      <img src="logo.png" width="96px" height="96px" />
+      <img src="logo.jpg" width="96px" height="96px" />
       <br>entur/gha-slack<br>
 </h1>
 
