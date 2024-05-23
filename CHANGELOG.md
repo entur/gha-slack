@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/entur/gha-slack/compare/v1.0.0...v1.0.1) (2024-05-23)
+
+
+### Bug Fixes
+
+* set timeout ([#11](https://github.com/entur/gha-slack/issues/11)) ([be4c794](https://github.com/entur/gha-slack/commit/be4c79403ca7c439d253f7d1a469d5db9a4937b3))
+* use sandbox channel ([b7ac51a](https://github.com/entur/gha-slack/commit/b7ac51a69e8561ee687d0534314b87e0a4d08d1b))
+
 ## 1.0.0 (2024-04-26)
 
 
