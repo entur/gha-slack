@@ -23,12 +23,16 @@ on:
         description: "What kind of event triggered the message"
         type: string
         default: "CD"
+      timeout_minutes:
+        description: "Job timeout in minutes"
+        type: number
+        default: 5
 jobs:
   build:
     runs-on: ubuntu-24.04
+    timeout-minutes: ${{ inputs.timeout_minutes }}
     permissions:
       contents: read
-    timeout-minutes: 40
     steps:
       - id: set-env
         shell: bash
