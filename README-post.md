@@ -1,6 +1,21 @@
-# post
+# `gha-slack/post`
 
 Post a slack message
+
+## Usage
+
+Add the following step to your workflow configuration:
+
+```yml
+jobs:
+  post-to-slack:
+    name: Post to Slack
+    uses: entur/gha-slack/.github/workflows/post.yml@v1
+    with:
+      channel: "CHNLID"
+      team: my-team
+    secrets: inherit
+```
 
 ## Inputs
 
