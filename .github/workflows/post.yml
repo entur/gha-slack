@@ -13,14 +13,14 @@ on:
         type: string
       message:
         description: "Fallback message to post to Slack (required if blocks are not provided)"
-        type: string
         required: false
+        type: string
       timeout_minutes:
         description: "Job timeout in minutes"
         type: number
         default: 5
 jobs:
-  build:
+  slack-post:
     runs-on: ubuntu-24.04
     timeout-minutes: ${{ inputs.timeout_minutes }}
     permissions:
@@ -35,8 +35,7 @@ jobs:
         uses: slackapi/slack-github-action@v1.27.0
         with:
           channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
-          payload: |
-            ${{ inputs.blocks }}
+          payload: ${{ inputs.blocks }}
       - id: slack-post-message
         if: env.GHA_SLACK_POST_BLOCKS == ''
         uses: slackapi/slack-github-action@v1.27.0
