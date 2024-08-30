@@ -30,17 +30,20 @@ jobs:
         shell: bash
         run: |
           echo "GHA_SLACK_POST_CHANNEL=${{ inputs.channel }}" >> $GITHUB_ENV
+          echo "GHA_SLACK_POST_MESSAGE=${{ inputs.message }}" >> $GITHUB_ENV
+          echo "GHA_SLACK_POST_BLOCKS=${{ inputs.blocks }}" >> $GITHUB_ENV
       - if: env.GHA_SLACK_POST_BLOCKS != ''
         id: slack-post-block
         uses: slackapi/slack-github-action@v1.27.0
         with:
           channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
-          payload: ${{ inputs.blocks }}
+          payload: |
+            ${{ env.GHA_SLACK_POST_BLOCKS }}
       - id: slack-post-message
         if: env.GHA_SLACK_POST_BLOCKS == ''
         uses: slackapi/slack-github-action@v1.27.0
         with:
           channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
-          slack-message: ${{ inputs.message }}
+          slack-message: ${{ env.GHA_SLACK_POST_MESSAGE }}
     env:
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
