@@ -13,10 +13,43 @@ jobs:
       workflow_file: .github/workflows/post.yml
       readme_file: README-post.md
 
-  post-message:
+  test-post-message:
     uses: ./.github/workflows/post.yml
     with:
       channel: "GFBL95A0J" # notify-plattform
-      team: plattform
-      release_name: gha-slack
+      message: "Hello from gha-slack CI-workflow!"
+    secrets: inherit
+
+  test-post-message-with-blocks:
+    uses: ./.github/workflows/post.yml
+    with:
+      channel: "GFBL95A0J" # notify-plattform
+      blocks: |
+        {
+         	"blocks": [
+          		{
+         			"type": "section",
+         			"text": {
+          				"type": "mrkdwn",
+          				"text": "*Hello from gha-slack CI!* :rocket:"
+         			}
+          		},
+          		{
+         			"type": "divider"
+          		},
+          		{
+         			"type": "section",
+         			"fields": [
+          				{
+         					"type": "mrkdwn",
+         					"text": "*Repository:*\n<https://github.com/entur/gha-slack|gha-slack>"
+          				},
+          				{
+         					"type": "mrkdwn",
+         					"text": "*Branch:*\n${{ github.ref_name }}"
+          				}
+         			]
+          		}
+         	]
+        }
     secrets: inherit

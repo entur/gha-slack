@@ -4,16 +4,58 @@ Post a slack message
 
 ## Usage
 
-Add the following step to your workflow configuration:
+The workflow checks if the blocks input is provided. If blocks are provided, they are used in the payload; otherwise, the plain text message is sent.
+
+## Examples
+
+Send plain message:
 
 ```yml
 jobs:
-  post-to-slack:
-    name: Post to Slack
-    uses: entur/gha-slack/.github/workflows/post.yml@v1
+  post-message-to-slack:
+    uses: entur/gha-slack/.github/workflows/post.yml@v2
     with:
-      channel: "CHNLID"
-      team: my-team
+      channel: "CHANNEL_ID"
+      message: "My message"
+    secrets: inherit
+```
+
+Send message with blocks:
+
+```yml
+jobs:
+  post-message-to-slack:
+    uses: entur/gha-slack/.github/workflows/post.yml@v2
+    with:
+      channel: "CHANNEL_ID"
+      blocks: |
+        {
+         	"blocks": [
+          		{
+         			"type": "section",
+         			"text": {
+          				"type": "mrkdwn",
+          				"text": "*My message!* :rocket:"
+         			}
+          		},
+          		{
+         			"type": "divider"
+          		},
+          		{
+         			"type": "section",
+         			"fields": [
+          				{
+         					"type": "mrkdwn",
+         					"text": "*Field 1:*\nThis is field 1"
+          				},
+          				{
+         					"type": "mrkdwn",
+         					"text": "*Field 2:*\nThis is field 2"
+          				}
+         			]
+          		}
+         	]
+        }
     secrets: inherit
 ```
 
