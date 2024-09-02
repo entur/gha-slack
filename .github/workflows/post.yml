@@ -35,7 +35,7 @@ jobs:
           echo "${{ inputs.blocks }}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
       - id: slack-post-message
-        if: env.GHA_SLACK_POST_BLOCKS = ''
+        if: env.GHA_SLACK_POST_BLOCKS == ''
         uses: slackapi/slack-github-action@v1.27.0
         with:
           channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
