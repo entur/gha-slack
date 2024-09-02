@@ -16,14 +16,14 @@ jobs:
   test-post-message:
     uses: ./.github/workflows/post.yml
     with:
-      channel: "C01AVRY6Q23" # notify-plattform
+      channel_id: "C01AVRY6Q23" # notify-plattform
       message: "gha-slack CI: Test to send simple plain text message using gha-slack/post!"
     secrets: inherit
 
   test-post-message-with-blocks:
     uses: ./.github/workflows/post.yml
     with:
-      channel: "C01AVRY6Q23" # notify-plattform
+      channel_id: "C01AVRY6Q23" # notify-plattform
       blocks: |
         {
          	"blocks": [

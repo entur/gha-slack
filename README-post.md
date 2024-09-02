@@ -4,7 +4,7 @@ Post a slack message
 
 ## Usage
 
-The workflow checks if the blocks input is provided. If blocks are provided, they are used in the payload; otherwise, the plain text message is sent.
+The workflow can be used to send a plain text message og a rich message using Block Kit (https://api.slack.com/tools/block-kit-builder).
 
 ## Examples
 
@@ -20,7 +20,7 @@ jobs:
     secrets: inherit
 ```
 
-Send message with blocks (the Block Kit Builder can be used to generate blocks https://api.slack.com/tools/block-kit-builder):
+Send message with blocks (JSON payload):
 
 ```yml
 jobs:

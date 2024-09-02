@@ -3,8 +3,8 @@ name: Entur/Slack/Post
 on:
   workflow_call:
     inputs:
-      channel:
-        description: "Slack channel to post the message"
+      channel_id:
+        description: "Slack channel id you wish to post message to"
         type: string
         required: true
       blocks:
@@ -12,7 +12,7 @@ on:
         required: false
         type: string
       message:
-        description: "Message to post to Slack"
+        description: "Simple plain text message to post to Slack"
         required: false
         type: string
       timeout_minutes:
@@ -30,13 +30,13 @@ jobs:
         shell: bash
         # Blocks are passed as a JSON string, so we need to wrap them in a heredoc using single quotes sice the JSON string may contain double quotes
         run: |
-          echo "GHA_SLACK_POST_CHANNEL=${{ inputs.channel }}" >> $GITHUB_ENV
+          echo "GHA_SLACK_POST_CHANNEL=${{ inputs.channel_id }}" >> $GITHUB_ENV
           echo "GHA_SLACK_POST_MESSAGE=${{ inputs.message }}" >> $GITHUB_ENV
           echo 'GHA_SLACK_POST_BLOCKS<<EOF' >> $GITHUB_ENV
           echo '${{ inputs.blocks }}' >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
-      - id: slack-post-message
-        if: env.GHA_SLACK_POST_BLOCKS == ''
+      - if: env.GHA_SLACK_POST_MESSAGE != ''
+        id: slack-post-message
         uses: slackapi/slack-github-action@v1.27.0
         with:
           channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
