@@ -17,7 +17,7 @@ jobs:
     uses: ./.github/workflows/post.yml
     with:
       channel: "C01AVRY6Q23" # notify-plattform
-      message: "This is a test from the gha-slack CI-workflow!"
+      message: "gha-slack CI: Test to send simple plain text message using gha-slack/post!"
     secrets: inherit
 
   test-post-message-with-blocks:
@@ -31,7 +31,7 @@ jobs:
          			"type": "section",
          			"text": {
           				"type": "mrkdwn",
-          				"text": "*This is a test from the gha-slack CI-workflow!* :rocket:"
+          				"text": "*gha-slack CI: Test to send JSON rich message using Block Kit from gha-slack/post!!* :rocket:"
              	}
             },
             {
@@ -46,7 +46,7 @@ jobs:
         				},
         				{
          					"type": "mrkdwn",
-         					"text": "*Branch:*\n${{ github.ref_name }}"
+         					"text": "*Action:*\n${{ github.action }}"
         				}
          			]
             }

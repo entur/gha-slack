@@ -28,6 +28,7 @@ jobs:
     steps:
       - id: set-env
         shell: bash
+        # Blocks are passed as a JSON string, so we need to wrap them in a heredoc using single quotes sice the JSON string may contain double quotes
         run: |
           echo "GHA_SLACK_POST_CHANNEL=${{ inputs.channel }}" >> $GITHUB_ENV
           echo "GHA_SLACK_POST_MESSAGE=${{ inputs.message }}" >> $GITHUB_ENV
