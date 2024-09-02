@@ -12,7 +12,7 @@ on:
         required: false
         type: string
       message:
-        description: "Fallback message to post to Slack (required if blocks are not provided)"
+        description: "Message to post to Slack"
         required: false
         type: string
       timeout_minutes:
@@ -34,6 +34,12 @@ jobs:
           echo "GHA_SLACK_POST_BLOCKS<<EOF" >> $GITHUB_ENV
           echo "${{ inputs.blocks }}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
+      - id: slack-post-message
+        if: env.GHA_SLACK_POST_BLOCKS = ''
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
+          slack-message: ${{ env.GHA_SLACK_POST_MESSAGE }}
       - if: env.GHA_SLACK_POST_BLOCKS != ''
         id: slack-post-block
         uses: slackapi/slack-github-action@v1.27.0
@@ -41,11 +47,5 @@ jobs:
           channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
           payload: |
             ${{ env.GHA_SLACK_POST_BLOCKS }}
-      - id: slack-post-message
-        if: env.GHA_SLACK_POST_BLOCKS == ''
-        uses: slackapi/slack-github-action@v1.27.0
-        with:
-          channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
-          slack-message: ${{ env.GHA_SLACK_POST_MESSAGE }}
     env:
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

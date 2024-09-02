@@ -26,27 +26,27 @@ jobs:
       channel: "C01AVRY6Q23" # notify-plattform
       blocks: |
         {
-         	"blocks": [
+         	'blocks': [
         		{
-         			"type": "section",
-         			"text": {
-          				"type": "mrkdwn",
-          				"text": "*This is a test from the gha-slack CI-workflow!* :rocket:"
+         			'type': 'section',
+         			'text': {
+          				'type': 'mrkdwn',
+          				'text': '*This is a test from the gha-slack CI-workflow!* :rocket:'
              	}
             },
             {
-         			"type": "divider"
+         			'type': 'divider'
             },
             {
-         			"type": "section",
-         			"fields": [
+         			'type': 'section',
+         			'fields': [
         				{
-         					"type": "mrkdwn",
-         					"text": "*Repository:*\n<https://github.com/entur/gha-slack|gha-slack>"
+         					'type': 'mrkdwn',
+         					'text': '*Repository:*\n<https://github.com/entur/gha-slack|gha-slack>'
         				},
         				{
-         					"type": "mrkdwn",
-         					"text": "*Branch:*\n${{ github.ref_name }}"
+         					'type': 'mrkdwn',
+         					'text': '*Branch:*\n${{ github.ref_name }}'
         				}
          			]
             }
