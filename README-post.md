@@ -66,8 +66,8 @@ jobs:
 |                                     INPUT                                     |  TYPE  | REQUIRED | DEFAULT |                            DESCRIPTION                             |
 |-------------------------------------------------------------------------------|--------|----------|---------|--------------------------------------------------------------------|
 |              <a name="input_blocks"></a>[blocks](#input_blocks)               | string |  false   |         | The Slack blocks to include <br>in the message (as a JSON string)  |
-|             <a name="input_channel"></a>[channel](#input_channel)             | string |   true   |         |               Slack channel to post the <br>message                |
-|             <a name="input_message"></a>[message](#input_message)             | string |  false   |         |                      Message to post to Slack                      |
+|        <a name="input_channel_id"></a>[channel_id](#input_channel_id)         | string |   true   |         |         Slack channel id you wish <br>to post message to           |
+|             <a name="input_message"></a>[message](#input_message)             | string |  false   |         |          Simple plain text message to <br>post to Slack            |
 | <a name="input_timeout_minutes"></a>[timeout_minutes](#input_timeout_minutes) | number |  false   |   `5`   |                       Job timeout in minutes                       |
 
 <!-- AUTO-DOC-INPUT:END -->
