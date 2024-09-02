@@ -46,7 +46,7 @@ jobs:
         				},
         				{
          					"type": "mrkdwn",
-         					"text": "*Action:*\n${{ github.action }}"
+         					"text": "*Workflow:*\n<https://github.com/entur/gha-slack/.github/workflows/post.yml|post>"
         				}
          			]
             }

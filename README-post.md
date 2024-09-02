@@ -20,7 +20,7 @@ jobs:
     secrets: inherit
 ```
 
-Send message with blocks:
+Send message with blocks (the Block Kit Builder can be used to generate blocks https://api.slack.com/tools/block-kit-builder):
 
 ```yml
 jobs:
