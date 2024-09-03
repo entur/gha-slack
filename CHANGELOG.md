@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/entur/gha-slack/compare/v1.0.1...v2.0.0) (2024-09-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* add functionality to send messages and blocks ([#14](https://github.com/entur/gha-slack/issues/14))
+
+### Features
+
+* add functionality to send messages and blocks ([#14](https://github.com/entur/gha-slack/issues/14)) ([cbd3397](https://github.com/entur/gha-slack/commit/cbd339738efb4ae5557d07c263f9a14085eea306))
+
 ## [1.0.1](https://github.com/entur/gha-slack/compare/v1.0.0...v1.0.1) (2024-05-23)
 
 
