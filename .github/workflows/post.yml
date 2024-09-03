@@ -3,32 +3,24 @@ name: Entur/Slack/Post
 on:
   workflow_call:
     inputs:
-      channel:
-        description: "Slack channel"
+      channel_id:
+        description: "Slack channel id you wish to post message to"
         type: string
         required: true
-      team:
-        description: "Team name"
+      blocks:
+        description: "The Slack blocks to include in the message (as a JSON string)"
+        required: false
         type: string
-        required: true
-      release_name:
-        description: "Release name, default $repo_name"
+      message:
+        description: "Simple plain text message to post to Slack"
+        required: false
         type: string
-        default: "repo_name"
-      image:
-        description: "Image name"
-        type: string
-        default: "N/A"
-      mode:
-        description: "What kind of event triggered the message"
-        type: string
-        default: "CD"
       timeout_minutes:
         description: "Job timeout in minutes"
         type: number
         default: 5
 jobs:
-  build:
+  slack-post:
     runs-on: ubuntu-24.04
     timeout-minutes: ${{ inputs.timeout_minutes }}
     permissions:
@@ -36,38 +28,25 @@ jobs:
     steps:
       - id: set-env
         shell: bash
+        # Blocks are passed as a JSON string, so we need to wrap them in a heredoc using single quotes sice the JSON string may contain double quotes
         run: |
-          echo "GHA_SLACK_POST_CHANNEL=${{ inputs.channel }}" >> $GITHUB_ENV
-          echo "GHA_SLACK_POST_TEAM=${{ inputs.team }}" >> $GITHUB_ENV
-          echo "GHA_SLACK_POST_RELEASE_NAME=${{ inputs.release_name }}" >> $GITHUB_ENV
-          echo "GHA_SLACK_POST_IMAGE=${{ inputs.image }}" >> $GITHUB_ENV
-          echo "GHA_SLACK_POST_MODE=${{ inputs.mode }}" >> $GITHUB_ENV
-      - id: set-release-name
-        shell: bash
-        run: |
-          if [[ "${{ env.GHA_SLACK_POST_RELEASE_NAME }}" = "repo_name" ]]; then
-            echo "GHA_SLACK_POST_RELEASE_NAME=${GITHUB_REPOSITORY#*/}" >> $GITHUB_ENV
-          fi
-      - id: set-message
-        shell: bash
-        run: |
-          echo "GHA_SLACK_POST_MESSAGE=*${{ env.GHA_SLACK_POST_TEAM }}* / _${{ github.actor }} (${{ env.GHA_SLACK_POST_MODE }})_\n*${{ env.GHA_SLACK_POST_RELEASE_NAME }}*\n\`${{ env.GHA_SLACK_POST_IMAGE }}\`" >> $GITHUB_ENV
-      - id: slack-push
-        uses: slackapi/slack-github-action@v1.25.0
+          echo "GHA_SLACK_POST_CHANNEL=${{ inputs.channel_id }}" >> $GITHUB_ENV
+          echo "GHA_SLACK_POST_MESSAGE=${{ inputs.message }}" >> $GITHUB_ENV
+          echo 'GHA_SLACK_POST_BLOCKS<<EOF' >> $GITHUB_ENV
+          echo '${{ inputs.blocks }}' >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+      - if: env.GHA_SLACK_POST_MESSAGE != ''
+        id: slack-post-message
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
+          slack-message: ${{ env.GHA_SLACK_POST_MESSAGE }}
+      - if: env.GHA_SLACK_POST_BLOCKS != ''
+        id: slack-post-block
+        uses: slackapi/slack-github-action@v1.27.0
         with:
           channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
           payload: |
-            {
-              "text": "${{ env.GHA_SLACK_POST_MESSAGE }}",
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "${{ env.GHA_SLACK_POST_MESSAGE }}"
-                  }
-                }
-              ]
-            }
+            ${{ env.GHA_SLACK_POST_BLOCKS }}
     env:
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}

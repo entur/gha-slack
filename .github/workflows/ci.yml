@@ -13,10 +13,43 @@ jobs:
       workflow_file: .github/workflows/post.yml
       readme_file: README-post.md
 
-  post-message:
+  test-post-message:
     uses: ./.github/workflows/post.yml
     with:
-      channel: "GFBL95A0J" # notify-plattform
-      team: plattform
-      release_name: gha-slack
+      channel_id: "C01AVRY6Q23" # notify-plattform
+      message: "gha-slack CI: Test to send simple plain text message using gha-slack/post!"
+    secrets: inherit
+
+  test-post-message-with-blocks:
+    uses: ./.github/workflows/post.yml
+    with:
+      channel_id: "C01AVRY6Q23" # notify-plattform
+      blocks: |
+        {
+         	"blocks": [
+        		{
+         			"type": "section",
+         			"text": {
+          				"type": "mrkdwn",
+          				"text": "*gha-slack CI: Test to send JSON rich message using Block Kit from gha-slack/post!!* :rocket:"
+             	}
+            },
+            {
+         			"type": "divider"
+            },
+            {
+         			"type": "section",
+         			"fields": [
+        				{
+         					"type": "mrkdwn",
+         					"text": "*Repository:*\n<https://github.com/entur/gha-slack|gha-slack>"
+        				},
+        				{
+         					"type": "mrkdwn",
+         					"text": "*Workflow:*\n<https://github.com/entur/gha-slack/.github/workflows/post.yml|post>"
+        				}
+         			]
+            }
+         	]
+        }
     secrets: inherit
