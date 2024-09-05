@@ -15,7 +15,7 @@ jobs:
   post-message-to-slack:
     uses: entur/gha-slack/.github/workflows/post.yml@v2
     with:
-      channel: "CHANNEL_ID"
+      channel_id: "CHANNEL_ID"
       message: "My message"
     secrets: inherit
 ```
@@ -27,7 +27,7 @@ jobs:
   post-message-to-slack:
     uses: entur/gha-slack/.github/workflows/post.yml@v2
     with:
-      channel: "CHANNEL_ID"
+      channel_id: "CHANNEL_ID"
       blocks: |
         {
          	"blocks": [
