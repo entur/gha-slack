@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/entur/gha-slack/compare/v2.0.0...v2.0.1) (2024-09-25)
+
+
+### Bug Fixes
+
+* allow line break in simple message ([#17](https://github.com/entur/gha-slack/issues/17)) ([162fd9c](https://github.com/entur/gha-slack/commit/162fd9c6ef2c7dcc266a90c5ba0a303a8c30f4cd))
+
 ## [2.0.0](https://github.com/entur/gha-slack/compare/v1.0.1...v2.0.0) (2024-09-03)
 
 
