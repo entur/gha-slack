@@ -31,9 +31,9 @@ jobs:
         # Blocks are passed as a JSON string, so we need to wrap them in a heredoc using single quotes sice the JSON string may contain double quotes
         run: |
           echo "GHA_SLACK_POST_CHANNEL=${{ inputs.channel_id }}" >> $GITHUB_ENV
-          echo 'GHA_SLACK_POST_MESSAGE<<EOM' >> $GITHUB_ENV
-          echo '${{ inputs.message }}' >> $GITHUB_ENV
-          echo 'EOM' >> $GITHUB_ENV
+          echo "GHA_SLACK_POST_MESSAGE<<EOM" >> $GITHUB_ENV
+          echo "${{ inputs.message }}" >> $GITHUB_ENV
+          echo "EOM" >> $GITHUB_ENV
           echo 'GHA_SLACK_POST_BLOCKS<<EOB' >> $GITHUB_ENV
           echo '${{ inputs.blocks }}' >> $GITHUB_ENV
           echo 'EOB' >> $GITHUB_ENV
