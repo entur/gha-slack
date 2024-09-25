@@ -17,7 +17,7 @@ jobs:
     uses: ./.github/workflows/post.yml
     with:
       channel_id: "C01AVRY6Q23" # notify-plattform
-      message: "gha-slack CI: Test to send simple plain text message using gha-slack/post!"
+      message: "gha-slack CI: Test to send simple plain text message\n with line break using gha-slack/post!"
     secrets: inherit
 
   test-post-message-with-blocks:
