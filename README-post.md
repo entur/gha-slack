@@ -4,7 +4,7 @@ Post a slack message
 
 ## Usage
 
-The workflow can be used to send a plain text message og a rich message using Block Kit (https://api.slack.com/tools/block-kit-builder)
+This workflow can be used to send a plain text message or a rich message using [Block Kit](https://api.slack.com/tools/block-kit-builder)
 
 Please read the prerequisites [here](/.github/README.md)
 
