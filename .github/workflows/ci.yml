@@ -8,7 +8,7 @@ on:
 
 jobs:
   update-post-doc:
-    uses: entur/gha-meta/.github/workflows/auto-doc.yml@v1.0.0
+    uses: entur/gha-meta/.github/workflows/auto-doc.yml@v1.2.0
     with:
       workflow_file: .github/workflows/post.yml
       readme_file: README-post.md
