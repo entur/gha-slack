@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/entur/gha-slack/compare/v2.0.1...v2.0.2) (2024-11-05)
+
+
+### Bug Fixes
+
+* typo and link ([c4848c2](https://github.com/entur/gha-slack/commit/c4848c2a77c33657212697f13a83657d03fc3f55))
+
 ## [2.0.1](https://github.com/entur/gha-slack/compare/v2.0.0...v2.0.1) (2024-09-25)
 
 
