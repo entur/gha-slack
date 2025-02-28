@@ -1,6 +1,16 @@
 version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+- package-ecosystem: github-actions
+  directory: "/"
+  groups:
+    minor-and-patch:
+      applies-to: version-updates
+      update-types:
+        - "minor"
+        - "patch"
+  schedule:
+    interval: "weekly"
+    time: "09:00"
+    timezone: "Europe/Oslo"
+    day: "monday"
+  open-pull-requests-limit: 2
