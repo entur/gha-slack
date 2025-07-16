@@ -42,15 +42,17 @@ jobs:
         uses: slackapi/slack-github-action@v2.1.1
         with:
           method: chat.postMessage
-          payload:
-            channel: ${{ env.GHA_SLACK_POST_CHANNEL }}
-            text: ${{ env.GHA_SLACK_POST_MESSAGE }}
+          token: ${{env.SLACK_BOT_TOKEN}}
+          payload: | 
+            channel: ${{ inputs.channel_id }}
+            text: ${{ inputs.message }}
       - if: env.GHA_SLACK_POST_BLOCKS != ''
         id: slack-post-block
         uses: slackapi/slack-github-action@v2.1.1
         with:
           method: chat.postMessage
-          payload:
+          token: ${{env.SLACK_BOT_TOKEN}}
+          payload: 
             channel: ${{ env.GHA_SLACK_POST_CHANNEL }}
             blocks: |
               ${{ env.GHA_SLACK_POST_BLOCKS }}
