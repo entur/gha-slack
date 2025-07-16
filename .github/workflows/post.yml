@@ -39,16 +39,20 @@ jobs:
           echo 'EOB' >> $GITHUB_ENV
       - if: env.GHA_SLACK_POST_MESSAGE != ''
         id: slack-post-message
-        uses: slackapi/slack-github-action@v1.27.0
+        uses: slackapi/slack-github-action@v2.1.1
         with:
-          channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
-          slack-message: ${{ env.GHA_SLACK_POST_MESSAGE }}
+          method: chat.postMessage
+          payload:
+            channel: ${{ env.GHA_SLACK_POST_CHANNEL }}
+            text: ${{ env.GHA_SLACK_POST_MESSAGE }}
       - if: env.GHA_SLACK_POST_BLOCKS != ''
         id: slack-post-block
-        uses: slackapi/slack-github-action@v1.27.0
+        uses: slackapi/slack-github-action@v2.1.1
         with:
-          channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
-          payload: |
-            ${{ env.GHA_SLACK_POST_BLOCKS }}
+          method: chat.postMessage
+          payload:
+            channel: ${{ env.GHA_SLACK_POST_CHANNEL }}
+            blocks: |
+              ${{ env.GHA_SLACK_POST_BLOCKS }}
     env:
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
