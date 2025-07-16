@@ -18,12 +18,12 @@ jobs:
       workflow_file: .github/workflows/post.yml
       readme_file: README-post.md
 
-  test-post-message:
-    uses: ./.github/workflows/post.yml
-    with:
-      channel_id: "C01AVRY6Q23" # notify-plattform
-      message: "gha-slack CI: Test to send simple plain text message\n with line break using gha-slack/post!"
-    secrets: inherit
+#  test-post-message:
+#    uses: ./.github/workflows/post.yml
+#    with:
+#      channel_id: "C01AVRY6Q23" # notify-plattform
+#      message: "gha-slack CI: Test to send simple plain text message\n with line break using gha-slack/post!"
+#    secrets: inherit
 
   test-post-message-with-blocks:
     uses: ./.github/workflows/post.yml
