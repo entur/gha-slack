@@ -31,19 +31,18 @@ jobs:
     with:
       channel_id: "CHANNEL_ID"
       blocks: |
-        {
-         	"blocks": [
-          		{
+        [
+          	{
          			"type": "section",
          			"text": {
           				"type": "mrkdwn",
           				"text": "*My message!* :rocket:"
-         			}
-          		},
-          		{
+         		  }
+          	},
+          	{
          			"type": "divider"
-          		},
-          		{
+          	},
+          	{
          			"type": "section",
          			"fields": [
           				{
@@ -55,9 +54,8 @@ jobs:
          					"text": "*Field 2:*\nThis is field 2"
           				}
          			]
-          		}
-         	]
-        }
+          	}
+        ] 
     secrets: inherit
 ```
 
