@@ -31,19 +31,18 @@ jobs:
     with:
       channel_id: "CHANNEL_ID"
       blocks: |
-        {
-         	"blocks": [
-          		{
+        [
+          	{
          			"type": "section",
          			"text": {
           				"type": "mrkdwn",
           				"text": "*My message!* :rocket:"
-         			}
-          		},
-          		{
+         		  }
+          	},
+          	{
          			"type": "divider"
-          		},
-          		{
+          	},
+          	{
          			"type": "section",
          			"fields": [
           				{
@@ -55,9 +54,8 @@ jobs:
          					"text": "*Field 2:*\nThis is field 2"
           				}
          			]
-          		}
-         	]
-        }
+          	}
+        ] 
     secrets: inherit
 ```
 
@@ -65,12 +63,12 @@ jobs:
 
 <!-- AUTO-DOC-INPUT:START - Do not remove or modify this section -->
 
-|                                     INPUT                                     |  TYPE  | REQUIRED | DEFAULT |                            DESCRIPTION                             |
-|-------------------------------------------------------------------------------|--------|----------|---------|--------------------------------------------------------------------|
-|              <a name="input_blocks"></a>[blocks](#input_blocks)               | string |  false   |         | The Slack blocks to include <br>in the message (as a JSON string)  |
-|        <a name="input_channel_id"></a>[channel_id](#input_channel_id)         | string |   true   |         |         Slack channel id you wish <br>to post message to           |
-|             <a name="input_message"></a>[message](#input_message)             | string |  false   |         |          Simple plain text message to <br>post to Slack            |
-| <a name="input_timeout_minutes"></a>[timeout_minutes](#input_timeout_minutes) | number |  false   |   `5`   |                       Job timeout in minutes                       |
+|                                     INPUT                                     |  TYPE  | REQUIRED | DEFAULT |                    DESCRIPTION                    |
+|-------------------------------------------------------------------------------|--------|----------|---------|---------------------------------------------------|
+|              <a name="input_blocks"></a>[blocks](#input_blocks)               | string |  false   |         |  The Slack blocks to include <br>in the message   |
+|        <a name="input_channel_id"></a>[channel_id](#input_channel_id)         | string |   true   |         | Slack channel id you wish <br>to post message to  |
+|             <a name="input_message"></a>[message](#input_message)             | string |  false   |         |  Simple plain text message to <br>post to Slack   |
+| <a name="input_timeout_minutes"></a>[timeout_minutes](#input_timeout_minutes) | number |  false   |   `5`   |              Job timeout in minutes               |
 
 <!-- AUTO-DOC-INPUT:END -->
 

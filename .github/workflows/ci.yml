@@ -29,9 +29,9 @@ jobs:
     uses: ./.github/workflows/post.yml
     with:
       channel_id: "C01AVRY6Q23" # notify-plattform
+      message: "GitHub Action build result: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
       blocks: |
-        {
-         	"blocks": [
+        [
         		{
          			"type": "section",
          			"text": {
@@ -55,6 +55,5 @@ jobs:
         				}
          			]
             }
-         	]
-        }
+         ] 
     secrets: inherit
