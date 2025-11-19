@@ -8,7 +8,7 @@ on:
         type: string
         required: true
       blocks:
-        description: "The Slack blocks to include in the message"
+        description: "The Slack blocks to include in the message (as a JSON string)"
         required: false
         type: string
       message:
@@ -28,32 +28,27 @@ jobs:
     steps:
       - id: set-env
         shell: bash
-        # Blocks are passed as a JSON string, so we need to wrap them in a heredoc using single quotes sice the JSON string may contain double quotes to keep formatting valid
+        # Blocks are passed as a JSON string, so we need to wrap them in a heredoc using single quotes sice the JSON string may contain double quotes
         run: |
           echo "GHA_SLACK_POST_CHANNEL=${{ inputs.channel_id }}" >> $GITHUB_ENV
-          echo 'GHA_SLACK_POST_MESSAGE<<EOM' >> $GITHUB_ENV
+          echo "GHA_SLACK_POST_MESSAGE<<EOM" >> $GITHUB_ENV
           echo "${{ inputs.message }}" >> $GITHUB_ENV
-          echo 'EOM' >> $GITHUB_ENV
+          echo "EOM" >> $GITHUB_ENV
           echo 'GHA_SLACK_POST_BLOCKS<<EOB' >> $GITHUB_ENV
           echo '${{ inputs.blocks }}' >> $GITHUB_ENV
           echo 'EOB' >> $GITHUB_ENV
-      - if: env.GHA_SLACK_POST_MESSAGE != '' && env.GHA_SLACK_POST_BLOCKS == ''
+      - if: env.GHA_SLACK_POST_MESSAGE != ''
         id: slack-post-message
-        uses: slackapi/slack-github-action@v2.1.1
+        uses: slackapi/slack-github-action@v1.27.0
         with:
-          method: chat.postMessage
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: | 
-            channel: "${{ env.GHA_SLACK_POST_CHANNEL }}"
-            text: "${{ env.GHA_SLACK_POST_MESSAGE }}"
+          channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
+          slack-message: ${{ env.GHA_SLACK_POST_MESSAGE }}
       - if: env.GHA_SLACK_POST_BLOCKS != ''
         id: slack-post-block
-        uses: slackapi/slack-github-action@v2.1.1
-        with: 
-          method: chat.postMessage
-          token: ${{secrets.SLACK_BOT_TOKEN}}
-          payload: | 
-            "channel": "${{ env.GHA_SLACK_POST_CHANNEL }}",
-            "text": "${{ env.GHA_SLACK_POST_MESSAGE }}", 
-            "blocks": ${{ env.GHA_SLACK_POST_BLOCKS }} 
- 
+        uses: slackapi/slack-github-action@v1.27.0
+        with:
+          channel-id: ${{ env.GHA_SLACK_POST_CHANNEL }}
+          payload: |
+            ${{ env.GHA_SLACK_POST_BLOCKS }}
+    env:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
