@@ -1,5 +1,23 @@
 # Changelog
 
+## [3.0.0](https://github.com/entur/gha-slack/compare/v2.0.2...v3.0.0) (2025-11-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* Bump slack-github-action to version 2.
+* blocks input must be a json array, see slack block kit for reference.
+
+### Features
+
+* Bump slack-github-action to version 2 ([#30](https://github.com/entur/gha-slack/issues/30)) ([c376aed](https://github.com/entur/gha-slack/commit/c376aed5633174716a667f1d0c38d323ad35689f))
+* Bump slack-github-action to version 2. ([c376aed](https://github.com/entur/gha-slack/commit/c376aed5633174716a667f1d0c38d323ad35689f))
+
+
+### Bug Fixes
+
+* new common standard dependabot config [skip ci] ([#26](https://github.com/entur/gha-slack/issues/26)) ([4c08f74](https://github.com/entur/gha-slack/commit/4c08f741deec0b4998798202073ebb06dce1dd54))
+
 ## [2.0.2](https://github.com/entur/gha-slack/compare/v2.0.1...v2.0.2) (2024-11-05)
 
 
