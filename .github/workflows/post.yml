@@ -15,6 +15,7 @@ on:
         description: "Simple plain text message to post to Slack"
         required: false
         type: string
+        default: "Default slack message"
       timeout_minutes:
         description: "Job timeout in minutes"
         type: number
