@@ -30,6 +30,7 @@ jobs:
     uses: entur/gha-slack/.github/workflows/post.yml@v2
     with:
       channel_id: "CHANNEL_ID"
+      message: "Message to use if blocks is not read"
       blocks: |
         [
           	{
