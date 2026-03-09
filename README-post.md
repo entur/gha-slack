@@ -15,7 +15,7 @@ Send plain message:
 ```yml
 jobs:
   post-message-to-slack:
-    uses: entur/gha-slack/.github/workflows/post.yml@v2
+    uses: entur/gha-slack/.github/workflows/post.yml@v3
     with:
       channel_id: "CHANNEL_ID"
       message: "My message"
@@ -27,7 +27,7 @@ Send message with blocks (JSON payload):
 ```yml
 jobs:
   post-message-to-slack:
-    uses: entur/gha-slack/.github/workflows/post.yml@v2
+    uses: entur/gha-slack/.github/workflows/post.yml@v3
     with:
       channel_id: "CHANNEL_ID"
       message: "Message to use if blocks is not read"
