@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/entur/gha-slack/compare/v3.0.0...v3.0.1) (2026-03-09)
+
+
+### Bug Fixes
+
+* prevent shell injection by using intermediate env vars ([#39](https://github.com/entur/gha-slack/issues/39)) ([fa7909f](https://github.com/entur/gha-slack/commit/fa7909f2c3ef76bfbd28ecf9aa6af676c91c1ff8))
+
 ## [3.0.0](https://github.com/entur/gha-slack/compare/v2.0.2...v3.0.0) (2025-11-19)
 
 
