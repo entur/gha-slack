@@ -46,7 +46,7 @@ jobs:
           echo 'GHA_SLACK_EOB_DELIMITER' >> $GITHUB_ENV
       - if: env.GHA_SLACK_POST_MESSAGE != '' && env.GHA_SLACK_POST_BLOCKS == ''
         id: slack-post-message
-        uses: slackapi/slack-github-action@v2.1.1
+        uses: slackapi/slack-github-action@v3.0.1
         with:
           method: chat.postMessage
           token: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -55,7 +55,7 @@ jobs:
             text: "${{ env.GHA_SLACK_POST_MESSAGE }}"
       - if: env.GHA_SLACK_POST_BLOCKS != ''
         id: slack-post-block
-        uses: slackapi/slack-github-action@v2.1.1
+        uses: slackapi/slack-github-action@v3.0.1
         with:
           method: chat.postMessage
           token: ${{ secrets.SLACK_BOT_TOKEN }}
