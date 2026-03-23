@@ -83,7 +83,5 @@ jobs:
           payload: ${{ steps.build-payload.outputs.payload }}
       - id: capture-ts
         shell: bash
-        env:
-          RESPONSE: ${{ steps.slack-post.outputs.response }}
         run: |
-          echo "message_ts=$(echo "$RESPONSE" | jq -r '.ts')" >> $GITHUB_OUTPUT
+          echo "message_ts=${{ steps.slack-post.outputs.ts }}" >> $GITHUB_OUTPUT
