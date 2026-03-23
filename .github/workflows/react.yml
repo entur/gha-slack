@@ -20,7 +20,6 @@ on:
             eyes              👀  reviewing / taking a look
             tada              🎉  celebration
             warning           ⚠️  warning
-            hourglass_flowing_sand  ⏳  in progress
             thumbsup          👍  approval
         type: string
         required: true
