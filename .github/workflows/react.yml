@@ -46,7 +46,7 @@ jobs:
           echo "GHA_SLACK_REACT_MESSAGE_TS=$INPUT_MESSAGE_TS" >> $GITHUB_ENV
           echo "GHA_SLACK_REACT_EMOJI=$INPUT_EMOJI" >> $GITHUB_ENV
       - id: slack-react
-        uses: slackapi/slack-github-action@v2.1.1
+        uses: slackapi/slack-github-action@v3.0.1
         with:
           method: reactions.add
           token: ${{ secrets.SLACK_BOT_TOKEN }}

@@ -5,6 +5,8 @@ on:
     branches:
       - main
   pull_request:
+  pull_request_review:
+    types: [submitted]
 
 jobs:
   verify-pr:
@@ -13,6 +15,7 @@ jobs:
     uses: entur/gha-meta/.github/workflows/verify-pr.yml@v1
 
   test-post-message:
+    if: github.actor != 'dependabot[bot]' || (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
     uses: ./.github/workflows/post.yml
     with:
       channel_id: "C01AVRY6Q23" # notify-plattform
@@ -20,6 +23,7 @@ jobs:
     secrets: inherit
 
   test-post-message-with-blocks:
+    if: github.actor != 'dependabot[bot]' || (github.event_name == 'pull_request_review' && github.event.review.state == 'approved')
     uses: ./.github/workflows/post.yml
     with:
       channel_id: "C01AVRY6Q23" # notify-plattform

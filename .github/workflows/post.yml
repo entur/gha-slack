@@ -76,7 +76,7 @@ jobs:
           echo "$PAYLOAD" >> $GITHUB_OUTPUT
           echo "GHA_SLACK_PAYLOAD_DELIMITER" >> $GITHUB_OUTPUT
       - id: slack-post
-        uses: slackapi/slack-github-action@v2.1.1
+        uses: slackapi/slack-github-action@v3.0.1
         with:
           method: chat.postMessage
           token: ${{ secrets.SLACK_BOT_TOKEN }}
