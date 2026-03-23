@@ -35,24 +35,13 @@ jobs:
     permissions:
       contents: read
     steps:
-      - id: set-env
-        shell: bash
-        env:
-          INPUT_CHANNEL: ${{ inputs.channel_id }}
-          INPUT_MESSAGE_TS: ${{ inputs.message_ts }}
-          INPUT_EMOJI: ${{ inputs.emoji }}
-        run: |
-          echo "GHA_SLACK_REACT_CHANNEL=$INPUT_CHANNEL" >> $GITHUB_ENV
-          echo "GHA_SLACK_REACT_MESSAGE_TS=$INPUT_MESSAGE_TS" >> $GITHUB_ENV
-          echo "GHA_SLACK_REACT_EMOJI=$INPUT_EMOJI" >> $GITHUB_ENV
       - id: slack-react
         uses: slackapi/slack-github-action@v3.0.1
         with:
           method: reactions.add
           token: ${{ secrets.SLACK_BOT_TOKEN }}
+          errors: true
           payload: |
-            {
-              "channel": "${{ env.GHA_SLACK_REACT_CHANNEL }}",
-              "timestamp": "${{ env.GHA_SLACK_REACT_MESSAGE_TS }}",
-              "name": "${{ env.GHA_SLACK_REACT_EMOJI }}"
-            }
+            channel: "${{ inputs.channel_id }}"
+            timestamp: "${{ inputs.message_ts }}"
+            name: "${{ inputs.emoji }}"
