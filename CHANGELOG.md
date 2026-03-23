@@ -6,6 +6,7 @@
 ### Features
 
 * emoji react to messages and able to post to threads ([#43](https://github.com/entur/gha-slack/issues/43)) ([e104ab5](https://github.com/entur/gha-slack/commit/e104ab5e92f64daadba1a0033fc8d925b7b66017))
+  ⚠️ Reacting to slack messages needs new "react write" permissions, please renew permissions with `/invite github actions` in your slack channel.
 
 ## [3.0.1](https://github.com/entur/gha-slack/compare/v3.0.0...v3.0.1) (2026-03-09)
 
