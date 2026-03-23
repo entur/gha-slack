@@ -4,7 +4,7 @@ on:
   workflow_call:
     inputs:
       channel_id:
-        description: "Slack channel id where the message was posted"
+        description: "Slack channel ID where the message was posted"
         type: string
         required: true
       message_ts:
