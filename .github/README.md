@@ -13,8 +13,10 @@ The Slack integration application needs to have access to your slack channel. In
 
 - `/invite @GitHub Actions`
 
-You can now send messages using the slack-send action. The SLACK_BOT_TOKEN is already provided in our organisation.
+You can now send messages using the slack post action.
+The SLACK_BOT_TOKEN is already provided in our organisation.
 
 ## Reusable workflows documentation
 
 - [Slack post](../README-post.md)
+- [Slack react](../README-react.md)
