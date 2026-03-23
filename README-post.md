@@ -64,17 +64,22 @@ jobs:
 
 <!-- AUTO-DOC-INPUT:START - Do not remove or modify this section -->
 
-|                                     INPUT                                     |  TYPE  | REQUIRED |          DEFAULT          |                    DESCRIPTION                    |
-|-------------------------------------------------------------------------------|--------|----------|---------------------------|---------------------------------------------------|
-|              <a name="input_blocks"></a>[blocks](#input_blocks)               | string |  false   |                           |  The Slack blocks to include <br>in the message   |
-|        <a name="input_channel_id"></a>[channel_id](#input_channel_id)         | string |   true   |                           | Slack channel id you wish <br>to post message to  |
-|             <a name="input_message"></a>[message](#input_message)             | string |  false   | `"Default slack message"` |  Simple plain text message to <br>post to Slack   |
-| <a name="input_timeout_minutes"></a>[timeout_minutes](#input_timeout_minutes) | number |  false   |            `5`            |              Job timeout in minutes               |
+|                                     INPUT                                     |  TYPE  | REQUIRED |          DEFAULT          |                                  DESCRIPTION                                   |
+|-------------------------------------------------------------------------------|--------|----------|---------------------------|--------------------------------------------------------------------------------|
+|              <a name="input_blocks"></a>[blocks](#input_blocks)               | string |  false   |                           |                The Slack blocks to include <br>in the message                  |
+|        <a name="input_channel_id"></a>[channel_id](#input_channel_id)         | string |   true   |                           |               Slack channel id you wish <br>to post message to                 |
+|             <a name="input_message"></a>[message](#input_message)             | string |  false   | `"Default slack message"` |                Simple plain text message to <br>post to Slack                  |
+|          <a name="input_thread_ts"></a>[thread_ts](#input_thread_ts)          | string |  false   |                           | Post as a threaded reply <br>to this message_ts (the unique Slack message ID)  |
+| <a name="input_timeout_minutes"></a>[timeout_minutes](#input_timeout_minutes) | number |  false   |            `5`            |                             Job timeout in minutes                             |
 
 <!-- AUTO-DOC-INPUT:END -->
 
 ## Outputs
 
 <!-- AUTO-DOC-OUTPUT:START - Do not remove or modify this section -->
-No outputs.
+
+|                              OUTPUT                              |                     VALUE                     |                                                                              DESCRIPTION                                                                               |
+|------------------------------------------------------------------|-----------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <a name="output_message_ts"></a>[message_ts](#output_message_ts) | `"${{ jobs.slack-post.outputs.message_ts }}"` | Slack message timestamp, which serves <br>as the unique message ID. <br>Use as thread_ts to post <br>threaded replies, or with reactions.add/chat.update/chat.delete.  |
+
 <!-- AUTO-DOC-OUTPUT:END -->

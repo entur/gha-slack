@@ -1,0 +1,46 @@
+name: Entur/Slack/React
+
+on:
+  workflow_call:
+    inputs:
+      channel_id:
+        description: "Slack channel ID where the message was posted"
+        type: string
+        required: true
+      message_ts:
+        description: "Slack message timestamp (unique message ID) to react to"
+        type: string
+        required: true
+      emoji:
+        description: |
+          Emoji name to react with (without colons). Common examples:
+            white_check_mark  ✅  success / done
+            x                 ❌  failure
+            rocket            🚀  deployment / release
+            eyes              👀  reviewing / taking a look
+            tada              🎉  celebration
+            warning           ⚠️  warning
+            thumbsup          👍  approval
+        type: string
+        required: true
+      timeout_minutes:
+        description: "Job timeout in minutes"
+        type: number
+        default: 5
+jobs:
+  slack-react:
+    runs-on: ubuntu-24.04
+    timeout-minutes: ${{ inputs.timeout_minutes }}
+    permissions:
+      contents: read
+    steps:
+      - id: slack-react
+        uses: slackapi/slack-github-action@v3.0.1
+        with:
+          method: reactions.add
+          token: ${{ secrets.SLACK_BOT_TOKEN }}
+          errors: true
+          payload: |
+            channel: "${{ inputs.channel_id }}"
+            timestamp: "${{ inputs.message_ts }}"
+            name: "${{ inputs.emoji }}"
