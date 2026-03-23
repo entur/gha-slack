@@ -1,5 +1,5 @@
 <h1 align="center">
-      <img src="logo.jpg" width="96px" height="96px" />
+      <img src="logo.jpg" width="96px" height="96px" alt=""/>
       <br>entur/gha-slack<br>
 </h1>
 
@@ -11,10 +11,10 @@ Easily post messages to Slack
 
 The Slack integration application needs to have access to your slack channel. In your designated slack channel enter the following command(message):
 
-* `/invite @GitHub Actions Slack send`
+- `/invite @GitHub Actions`
 
 You can now send messages using the slack-send action. The SLACK_BOT_TOKEN is already provided in our organisation.
 
 ## Reusable workflows documentation
 
-* [Slack post](../README-post.md)
+- [Slack post](../README-post.md)
