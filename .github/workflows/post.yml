@@ -2,6 +2,10 @@ name: Entur/Slack/Post
 
 on:
   workflow_call:
+    outputs:
+      message_ts:
+        description: "Slack message timestamp, which serves as the unique message ID. Use as thread_ts to post threaded replies, or with reactions.add/chat.update/chat.delete."
+        value: ${{ jobs.slack-post.outputs.message_ts }}
     inputs:
       channel_id:
         description: "Slack channel id you wish to post message to"
@@ -16,6 +20,10 @@ on:
         required: false
         type: string
         default: "Default slack message"
+      thread_ts:
+        description: "Post as a threaded reply to this message_ts (the unique Slack message ID)"
+        required: false
+        type: string
       timeout_minutes:
         description: "Job timeout in minutes"
         type: number
@@ -26,6 +34,8 @@ jobs:
     timeout-minutes: ${{ inputs.timeout_minutes }}
     permissions:
       contents: read
+    outputs:
+      message_ts: ${{ steps.capture-ts.outputs.message_ts }}
     steps:
       - id: set-env
         shell: bash
@@ -33,6 +43,7 @@ jobs:
           INPUT_CHANNEL: ${{ inputs.channel_id }}
           INPUT_MESSAGE: ${{ inputs.message }}
           INPUT_BLOCKS: ${{ inputs.blocks }}
+          INPUT_THREAD_TS: ${{ inputs.thread_ts }}
         run: |
           echo "GHA_SLACK_POST_CHANNEL=$INPUT_CHANNEL" >> $GITHUB_ENV
           echo 'GHA_SLACK_POST_MESSAGE<<GHA_SLACK_EOM_DELIMITER' >> $GITHUB_ENV
@@ -44,24 +55,35 @@ jobs:
           echo 'GHA_SLACK_POST_BLOCKS<<GHA_SLACK_EOB_DELIMITER' >> $GITHUB_ENV
           echo "$INPUT_BLOCKS" >> $GITHUB_ENV
           echo 'GHA_SLACK_EOB_DELIMITER' >> $GITHUB_ENV
-      - if: env.GHA_SLACK_POST_MESSAGE != '' && env.GHA_SLACK_POST_BLOCKS == ''
-        id: slack-post-message
+          echo "GHA_SLACK_POST_THREAD_TS=$INPUT_THREAD_TS" >> $GITHUB_ENV
+      - id: build-payload
+        shell: bash
+        env:
+          CHANNEL: ${{ env.GHA_SLACK_POST_CHANNEL }}
+          TEXT: ${{ env.GHA_SLACK_POST_MESSAGE }}
+          BLOCKS: ${{ env.GHA_SLACK_POST_BLOCKS }}
+          THREAD_TS: ${{ env.GHA_SLACK_POST_THREAD_TS }}
+        run: |
+          PAYLOAD=$(jq -n \
+            --arg channel "$CHANNEL" \
+            --arg text "$TEXT" \
+            --arg thread_ts "$THREAD_TS" \
+            '{channel: $channel, text: $text} + (if $thread_ts != "" then {thread_ts: $thread_ts} else {} end)')
+          if [ -n "$BLOCKS" ]; then
+            PAYLOAD=$(echo "$PAYLOAD" | jq --argjson blocks "$BLOCKS" '. + {blocks: $blocks}')
+          fi
+          echo "payload<<GHA_SLACK_PAYLOAD_DELIMITER" >> $GITHUB_OUTPUT
+          echo "$PAYLOAD" >> $GITHUB_OUTPUT
+          echo "GHA_SLACK_PAYLOAD_DELIMITER" >> $GITHUB_OUTPUT
+      - id: slack-post
         uses: slackapi/slack-github-action@v2.1.1
         with:
           method: chat.postMessage
           token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: |
-            channel: "${{ env.GHA_SLACK_POST_CHANNEL }}"
-            text: "${{ env.GHA_SLACK_POST_MESSAGE }}"
-      - if: env.GHA_SLACK_POST_BLOCKS != ''
-        id: slack-post-block
-        uses: slackapi/slack-github-action@v2.1.1
-        with:
-          method: chat.postMessage
-          token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: |
-            {
-              "channel": "${{ env.GHA_SLACK_POST_CHANNEL }}",
-              "text": "${{ env.GHA_SLACK_POST_MESSAGE }}",
-              "blocks": ${{ env.GHA_SLACK_POST_BLOCKS }}
-            }
+          payload: ${{ steps.build-payload.outputs.payload }}
+      - id: capture-ts
+        shell: bash
+        env:
+          RESPONSE: ${{ steps.slack-post.outputs.response }}
+        run: |
+          echo "message_ts=$(echo "$RESPONSE" | jq -r '.ts')" >> $GITHUB_OUTPUT

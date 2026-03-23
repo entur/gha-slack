@@ -12,12 +12,6 @@ jobs:
     if: ${{ github.event_name == 'pull_request' }}
     uses: entur/gha-meta/.github/workflows/verify-pr.yml@v1
 
-  update-post-doc:
-    uses: entur/gha-meta/.github/workflows/auto-doc.yml@v1
-    with:
-      workflow_file: .github/workflows/post.yml
-      readme_file: README-post.md
-
   test-post-message:
     uses: ./.github/workflows/post.yml
     with:
@@ -55,5 +49,63 @@ jobs:
         				}
          			]
             }
-         ] 
+         ]
     secrets: inherit
+
+  test-post-message-threaded-reply:
+    needs: test-post-message
+    uses: ./.github/workflows/post.yml
+    with:
+      channel_id: "C01AVRY6Q23" # notify-plattform
+      message: "gha-slack CI: Threaded reply to plain text message (testing thread_ts/message_ts output)"
+      thread_ts: ${{ needs.test-post-message.outputs.message_ts }}
+    secrets: inherit
+
+  test-post-blocks-threaded-reply:
+    needs: test-post-message-with-blocks
+    uses: ./.github/workflows/post.yml
+    with:
+      channel_id: "C01AVRY6Q23" # notify-plattform
+      message: "gha-slack CI: Threaded reply to blocks message (testing thread_ts/message_ts output)"
+      thread_ts: ${{ needs.test-post-message-with-blocks.outputs.message_ts }}
+    secrets: inherit
+
+  test-react-to-message:
+    needs: test-post-message
+    uses: ./.github/workflows/react.yml
+    with:
+      channel_id: "C01AVRY6Q23" # notify-plattform
+      message_ts: ${{ needs.test-post-message.outputs.message_ts }}
+      emoji: "white_check_mark"
+    secrets: inherit
+
+  test-react-to-blocks:
+    needs: test-post-message-with-blocks
+    uses: ./.github/workflows/react.yml
+    with:
+      channel_id: "C01AVRY6Q23" # notify-plattform
+      message_ts: ${{ needs.test-post-message-with-blocks.outputs.message_ts }}
+      emoji: "rocket"
+    secrets: inherit
+
+  update-post-doc:
+    needs:
+      - test-post-message-threaded-reply
+      - test-post-blocks-threaded-reply
+      - test-react-to-message
+      - test-react-to-blocks
+    uses: entur/gha-meta/.github/workflows/auto-doc.yml@v1
+    with:
+      workflow_file: .github/workflows/post.yml
+      readme_file: README-post.md
+
+  update-react-doc:
+    needs:
+      - test-post-message-threaded-reply
+      - test-post-blocks-threaded-reply
+      - test-react-to-message
+      - test-react-to-blocks
+    uses: entur/gha-meta/.github/workflows/auto-doc.yml@v1
+    with:
+      workflow_file: .github/workflows/react.yml
+      readme_file: README-react.md

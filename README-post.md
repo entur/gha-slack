@@ -76,5 +76,9 @@ jobs:
 ## Outputs
 
 <!-- AUTO-DOC-OUTPUT:START - Do not remove or modify this section -->
-No outputs.
+
+| OUTPUT | DESCRIPTION |
+|--------|-------------|
+| <a name="output_message_ts"></a>[message_ts](#output_message_ts) | Slack message timestamp, which serves as the unique message ID. Use as thread_ts to post threaded replies, or with reactions.add/chat.update/chat.delete. |
+
 <!-- AUTO-DOC-OUTPUT:END -->
