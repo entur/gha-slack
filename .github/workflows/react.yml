@@ -12,15 +12,7 @@ on:
         type: string
         required: true
       emoji:
-        description: |
-          Emoji name to react with (without colons). Common examples:
-            white_check_mark  ✅  success / done
-            x                 ❌  failure
-            rocket            🚀  deployment / release
-            eyes              👀  reviewing / taking a look
-            tada              🎉  celebration
-            warning           ⚠️  warning
-            thumbsup          👍  approval
+        description: "Emoji name to react with (without colons)"
         type: string
         required: true
       timeout_minutes:
