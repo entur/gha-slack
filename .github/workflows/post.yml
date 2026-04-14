@@ -35,53 +35,14 @@ jobs:
     permissions:
       contents: read
     outputs:
-      message_ts: ${{ steps.capture-ts.outputs.message_ts }}
+      message_ts: ${{ steps.post.outputs.message_ts }}
     steps:
-      - id: set-env
-        shell: bash
-        env:
-          INPUT_CHANNEL: ${{ inputs.channel_id }}
-          INPUT_MESSAGE: ${{ inputs.message }}
-          INPUT_BLOCKS: ${{ inputs.blocks }}
-          INPUT_THREAD_TS: ${{ inputs.thread_ts }}
-        run: |
-          echo "GHA_SLACK_POST_CHANNEL=$INPUT_CHANNEL" >> $GITHUB_ENV
-          echo 'GHA_SLACK_POST_MESSAGE<<GHA_SLACK_EOM_DELIMITER' >> $GITHUB_ENV
-          echo "$INPUT_MESSAGE" >> $GITHUB_ENV
-          echo 'GHA_SLACK_EOM_DELIMITER' >> $GITHUB_ENV
-          if [ -n "$INPUT_BLOCKS" ]; then
-            echo "$INPUT_BLOCKS" | jq . > /dev/null 2>&1 || { echo "::error::blocks input is not valid JSON"; exit 1; }
-          fi
-          echo 'GHA_SLACK_POST_BLOCKS<<GHA_SLACK_EOB_DELIMITER' >> $GITHUB_ENV
-          echo "$INPUT_BLOCKS" >> $GITHUB_ENV
-          echo 'GHA_SLACK_EOB_DELIMITER' >> $GITHUB_ENV
-          echo "GHA_SLACK_POST_THREAD_TS=$INPUT_THREAD_TS" >> $GITHUB_ENV
-      - id: build-payload
-        shell: bash
-        env:
-          CHANNEL: ${{ env.GHA_SLACK_POST_CHANNEL }}
-          TEXT: ${{ env.GHA_SLACK_POST_MESSAGE }}
-          BLOCKS: ${{ env.GHA_SLACK_POST_BLOCKS }}
-          THREAD_TS: ${{ env.GHA_SLACK_POST_THREAD_TS }}
-        run: |
-          PAYLOAD=$(jq -n \
-            --arg channel "$CHANNEL" \
-            --arg text "$TEXT" \
-            --arg thread_ts "$THREAD_TS" \
-            '{channel: $channel, text: $text} + (if $thread_ts != "" then {thread_ts: $thread_ts} else {} end)')
-          if [ -n "$BLOCKS" ]; then
-            PAYLOAD=$(echo "$PAYLOAD" | jq --argjson blocks "$BLOCKS" '. + {blocks: $blocks}')
-          fi
-          echo "payload<<GHA_SLACK_PAYLOAD_DELIMITER" >> $GITHUB_OUTPUT
-          echo "$PAYLOAD" >> $GITHUB_OUTPUT
-          echo "GHA_SLACK_PAYLOAD_DELIMITER" >> $GITHUB_OUTPUT
-      - id: slack-post
-        uses: slackapi/slack-github-action@v3.0.1
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: post
+        uses: ./.github/actions/post
         with:
-          method: chat.postMessage
+          channel_id: ${{ inputs.channel_id }}
+          message: ${{ inputs.message }}
+          blocks: ${{ inputs.blocks }}
+          thread_ts: ${{ inputs.thread_ts }}
           token: ${{ secrets.SLACK_BOT_TOKEN }}
-          payload: ${{ steps.build-payload.outputs.payload }}
-      - id: capture-ts
-        shell: bash
-        run: |
-          echo "message_ts=${{ steps.slack-post.outputs.ts }}" >> $GITHUB_OUTPUT

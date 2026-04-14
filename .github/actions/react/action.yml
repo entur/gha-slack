@@ -1,0 +1,30 @@
+name: Entur/Slack/React
+description: Add a reaction to a Slack message
+
+inputs:
+  channel_id:
+    description: "Slack channel ID"
+    required: true
+  message_ts:
+    description: "Message timestamp to react to"
+    required: true
+  emoji:
+    description: "Emoji name without colons"
+    required: true
+  token:
+    description: "Slack bot token"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - id: slack-react
+      uses: slackapi/slack-github-action@v3.0.1
+      with:
+        method: reactions.add
+        token: ${{ inputs.token }}
+        errors: true
+        payload: |
+          channel: "${{ inputs.channel_id }}"
+          timestamp: "${{ inputs.message_ts }}"
+          name: "${{ inputs.emoji }}"
