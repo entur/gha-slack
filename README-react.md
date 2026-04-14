@@ -54,19 +54,17 @@ jobs:
 
 <!-- AUTO-DOC-INPUT:START - Do not remove or modify this section -->
 
-| INPUT                                                                         | TYPE   | REQUIRED | DEFAULT | DESCRIPTION                                                                                                                                                                                                                                                                                      |
-| ----------------------------------------------------------------------------- | ------ | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| <a name="input_channel_id"></a>[channel_id](#input_channel_id)                | string | true     |         | Slack channel ID where the <br>message was posted                                                                                                                                                                                                                                                |
-| <a name="input_emoji"></a>[emoji](#input_emoji)                               | string | true     |         | Emoji name to react with (without colons). Common examples: <br>- `white_check_mark` ✅ success / done <br>- `x` ❌ failure <br>- `rocket` 🚀 deployment / release <br>- `eyes` 👀 reviewing / taking a look <br>- `tada` 🎉 celebration <br>- `warning` ⚠️ warning <br>- `thumbsup` 👍 approval |
-| <a name="input_message_ts"></a>[message_ts](#input_message_ts)                | string | true     |         | Slack message timestamp (unique message ID) to <br>react to                                                                                                                                                                                                                                      |
-| <a name="input_timeout_minutes"></a>[timeout_minutes](#input_timeout_minutes) | number | false    | `5`     | Job timeout in minutes                                                                                                                                                                                                                                                                           |
+|                                     INPUT                                     |  TYPE  | REQUIRED | DEFAULT |                         DESCRIPTION                          |
+|-------------------------------------------------------------------------------|--------|----------|---------|--------------------------------------------------------------|
+|        <a name="input_channel_id"></a>[channel_id](#input_channel_id)         | string |   true   |         |      Slack channel ID where the <br>message was posted       |
+|                <a name="input_emoji"></a>[emoji](#input_emoji)                | string |   true   |         |        Emoji name to react with <br>(without colons)         |
+|        <a name="input_message_ts"></a>[message_ts](#input_message_ts)         | string |   true   |         | Slack message timestamp (unique message ID) to <br>react to  |
+| <a name="input_timeout_minutes"></a>[timeout_minutes](#input_timeout_minutes) | number |  false   |   `5`   |                    Job timeout in minutes                    |
 
 <!-- AUTO-DOC-INPUT:END -->
 
 ## Outputs
 
 <!-- AUTO-DOC-OUTPUT:START - Do not remove or modify this section -->
-
 No outputs.
-
 <!-- AUTO-DOC-OUTPUT:END -->
