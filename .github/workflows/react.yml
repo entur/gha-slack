@@ -26,13 +26,9 @@ jobs:
     permissions:
       contents: read
     steps:
-      - id: slack-react
-        uses: slackapi/slack-github-action@v3.0.1
+      - uses: ./.github/actions/react
         with:
-          method: reactions.add
+          channel_id: ${{ inputs.channel_id }}
+          message_ts: ${{ inputs.message_ts }}
+          emoji: ${{ inputs.emoji }}
           token: ${{ secrets.SLACK_BOT_TOKEN }}
-          errors: true
-          payload: |
-            channel: "${{ inputs.channel_id }}"
-            timestamp: "${{ inputs.message_ts }}"
-            name: "${{ inputs.emoji }}"
