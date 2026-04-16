@@ -26,8 +26,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-      - uses: ./.github/actions/react
+      - uses: entur/gha-slack/.github/actions/react@v3
         with:
           channel_id: ${{ inputs.channel_id }}
           message_ts: ${{ inputs.message_ts }}
