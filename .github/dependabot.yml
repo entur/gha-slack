@@ -3,8 +3,8 @@ updates:
 - package-ecosystem: github-actions
   directory: "/"
   exclude-paths:
-    - /.github/workflows/post.yml
-    - /.github/workflows/react.yml
+    - .github/workflows/post.yml # no prefix / in exclude-paths
+    - .github/workflows/react.yml # no prefix / in exclude-paths
   groups:
     minor-and-patch:
       applies-to: version-updates
