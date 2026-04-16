@@ -2,6 +2,9 @@ version: 2
 updates:
 - package-ecosystem: github-actions
   directory: "/"
+  exclude-paths:
+    - /.github/workflows/post.yml
+    - /.github/workflows/react.yml
   groups:
     minor-and-patch:
       applies-to: version-updates
@@ -14,3 +17,21 @@ updates:
     timezone: "Europe/Oslo"
     day: "monday"
   open-pull-requests-limit: 2
+- package-ecosystem: github-actions
+  directories:
+    - /.github/workflows/post.yml
+    - /.github/workflows/react.yml
+  groups:
+    minor-and-patch:
+      applies-to: version-updates
+      update-types:
+        - "minor"
+        - "patch"
+  schedule:
+    interval: "weekly"
+    time: "09:00"
+    timezone: "Europe/Oslo"
+    day: "monday"
+  open-pull-requests-limit: 2
+  commit-message:
+    prefix: "fix(deps):" # trigger new release when updating user-facing workflows
