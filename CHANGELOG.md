@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.2](https://github.com/entur/gha-slack/compare/v3.1.1...v3.1.2) (2026-04-16)
+
+
+### Bug Fixes
+
+* paths to composite actions ([#51](https://github.com/entur/gha-slack/issues/51)) ([9d33cb0](https://github.com/entur/gha-slack/commit/9d33cb085288dfc35172fc2f908f7cb8e7a98437))
+
 ## [3.1.1](https://github.com/entur/gha-slack/compare/v3.1.0...v3.1.1) (2026-04-16)
 
 
