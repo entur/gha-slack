@@ -18,6 +18,14 @@ The `channel_id` must be the channel ID, not the name of the Slack channel. You 
 
 React to a message posted in the same workflow:
 
+## Idempotency
+
+Adding a reaction is safe to run more than once. If the message already has the
+same reaction (for example after re-running a workflow), Slack returns
+`already_reacted`. It treat this as success, so the job does **not** fail.
+Real errors (invalid token, missing channel, etc.) still fail
+the job.
+
 ## Slack Emoji
 
 Supports all emoji's added to Entur's slack organisation, ie:

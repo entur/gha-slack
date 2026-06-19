@@ -23,8 +23,25 @@ runs:
       with:
         method: reactions.add
         token: ${{ inputs.token }}
-        errors: true
+        errors: false
         payload: |
           channel: "${{ inputs.channel_id }}"
           timestamp: "${{ inputs.message_ts }}"
           name: "${{ inputs.emoji }}"
+    - id: check-result
+      shell: bash
+      env:
+        OK: ${{ steps.slack-react.outputs.ok }}
+        RESPONSE: ${{ steps.slack-react.outputs.response }}
+      run: |
+        if [ "$OK" = "true" ]; then
+          echo "Reaction added."
+          exit 0
+        fi
+        ERROR=$(echo "$RESPONSE" | jq -r '.error // "unknown"')
+        if [ "$ERROR" = "already_reacted" ]; then
+          echo "::notice::Reaction already present (already_reacted) - ignoring."
+          exit 0
+        fi
+        echo "::error::Slack reactions.add failed: $ERROR"
+        exit 1
