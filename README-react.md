@@ -22,7 +22,7 @@ React to a message posted in the same workflow:
 
 Adding a reaction is safe to run more than once. If the message already has the
 same reaction (for example after re-running a workflow), Slack returns
-`already_reacted`. It treat this as success, so the job does **not** fail.
+`already_reacted`. The action treats this as success, so the job does **not** fail.
 Real errors (invalid token, missing channel, etc.) still fail
 the job.
 
