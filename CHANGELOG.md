@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.3](https://github.com/entur/gha-slack/compare/v3.1.2...v3.1.3) (2026-06-30)
+
+
+### Bug Fixes
+
+* rerun workflow ([#53](https://github.com/entur/gha-slack/issues/53)) ([e227dae](https://github.com/entur/gha-slack/commit/e227dae693ffd2e284cc456576bd7abc25dde70a))
+
 ## [3.1.2](https://github.com/entur/gha-slack/compare/v3.1.1...v3.1.2) (2026-04-16)
 
 
