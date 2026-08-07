@@ -19,7 +19,7 @@ runs:
   using: composite
   steps:
     - id: slack-react
-      uses: slackapi/slack-github-action@v3.0.1
+      uses: slackapi/slack-github-action@af78098f536edbc4de71162a307590698245be95 # v3.0.1
       with:
         method: reactions.add
         token: ${{ inputs.token }}
