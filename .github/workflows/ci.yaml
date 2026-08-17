@@ -16,7 +16,7 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     uses: ./.github/workflows/post.yml
     with:
-      channel_id: "C01AVRY6Q23" # notify-plattform
+      channel_id: "C0BQNDPQNGJ" # notify-test-gha
       message: "gha-slack CI: Test to send simple plain text message\n with line break using gha-slack/post!"
     secrets: inherit
 
@@ -24,7 +24,7 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     uses: ./.github/workflows/post.yml
     with:
-      channel_id: "C01AVRY6Q23" # notify-plattform
+      channel_id: "C0BQNDPQNGJ" # notify-test-gha
       message: "GitHub Action build result: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
       blocks: |
         [
@@ -58,7 +58,7 @@ jobs:
     needs: test-post-message
     uses: ./.github/workflows/post.yml
     with:
-      channel_id: "C01AVRY6Q23" # notify-plattform
+      channel_id: "C0BQNDPQNGJ" # notify-test-gha
       message: "gha-slack CI: Threaded reply to plain text message (testing thread_ts/message_ts output)"
       thread_ts: ${{ needs.test-post-message.outputs.message_ts }}
     secrets: inherit
@@ -67,7 +67,7 @@ jobs:
     needs: test-post-message-with-blocks
     uses: ./.github/workflows/post.yml
     with:
-      channel_id: "C01AVRY6Q23" # notify-plattform
+      channel_id: "C0BQNDPQNGJ" # notify-test-gha
       message: "gha-slack CI: Threaded reply to blocks message (testing thread_ts/message_ts output)"
       thread_ts: ${{ needs.test-post-message-with-blocks.outputs.message_ts }}
     secrets: inherit
@@ -76,7 +76,7 @@ jobs:
     needs: test-post-message
     uses: ./.github/workflows/react.yml
     with:
-      channel_id: "C01AVRY6Q23" # notify-plattform
+      channel_id: "C0BQNDPQNGJ" # notify-test-gha
       message_ts: ${{ needs.test-post-message.outputs.message_ts }}
       emoji: "white_check_mark"
     secrets: inherit
@@ -85,7 +85,7 @@ jobs:
     needs: test-post-message-with-blocks
     uses: ./.github/workflows/react.yml
     with:
-      channel_id: "C01AVRY6Q23" # notify-plattform
+      channel_id: "C0BQNDPQNGJ" # notify-test-gha
       message_ts: ${{ needs.test-post-message-with-blocks.outputs.message_ts }}
       emoji: "rocket"
     secrets: inherit
