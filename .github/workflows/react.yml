@@ -2,6 +2,10 @@ name: Entur/Slack/React
 
 on:
   workflow_call:
+    secrets:
+      SLACK_BOT_TOKEN:
+        description: "Slack bot token. Optional so callers using `secrets: inherit` keep working; pass it explicitly to avoid inheriting all secrets."
+        required: false
     inputs:
       channel_id:
         description: "Slack channel ID where the message was posted"
