@@ -6,6 +6,10 @@ on:
       message_ts:
         description: "Slack message timestamp, which serves as the unique message ID. Use as thread_ts to post threaded replies, or with reactions.add/chat.update/chat.delete."
         value: ${{ jobs.slack-post.outputs.message_ts }}
+    secrets:
+      SLACK_BOT_TOKEN:
+        description: "Slack bot token. Pass it explicitly, or use `secrets: inherit`."
+        required: true
     inputs:
       channel_id:
         description: "Slack channel id you wish to post message to"
