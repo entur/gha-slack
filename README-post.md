@@ -87,3 +87,15 @@ jobs:
 | <a name="output_message_ts"></a>[message_ts](#output_message_ts) | `"${{ jobs.slack-post.outputs.message_ts }}"` | Slack message timestamp, which serves <br>as the unique message ID. <br>Use as thread_ts to post <br>threaded replies, or with reactions.add/chat.update/chat.delete.  |
 
 <!-- AUTO-DOC-OUTPUT:END -->
+
+### Passing only the Slack token
+
+Instead of `secrets: inherit`, pass just the bot token:
+
+```yml
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+```
+
+`secrets: inherit` continues to work.
+

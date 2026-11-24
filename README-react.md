@@ -76,3 +76,15 @@ jobs:
 <!-- AUTO-DOC-OUTPUT:START - Do not remove or modify this section -->
 No outputs.
 <!-- AUTO-DOC-OUTPUT:END -->
+
+### Passing only the Slack token
+
+Instead of `secrets: inherit`, pass just the bot token:
+
+```yml
+    secrets:
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+```
+
+`secrets: inherit` continues to work.
+
